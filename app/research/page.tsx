@@ -1,9 +1,9 @@
-import LeaderboardPage from '@/components/leaderboard'
+import ResearchPage from '@/components/research-page'
 import React from 'react'
 
 const page = () => {
   return (
-    <LeaderboardPage />
+    <ResearchPage />
   )
 }
 
