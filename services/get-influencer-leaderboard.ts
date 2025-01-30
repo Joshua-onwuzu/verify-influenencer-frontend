@@ -1,4 +1,4 @@
-import { IGetGeneralInfoResponse, IGetInfluencerResponse, IGetLeaderboardResponse } from "@/types";
+import { IGetGeneralInfoResponse, IGetInfluencerResponse, IGetLeaderboardResponse, ResearchInfluencerPayload } from "@/types";
 
 export const getLeaderboard = async (
     category: string
@@ -32,6 +32,24 @@ export const getInfluencerDetail = async (id: string): Promise<IGetInfluencerRes
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/influencer/details?id=${id}`;
   
     const res = await fetch(url);
+  
+    return res.json();
+}
+
+
+export const researchInfluencer = async (body: ResearchInfluencerPayload): Promise<{
+    data: any[];
+    id: string;
+    success: boolean;
+    message: string;
+  }> => {
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/research`;
+  
+    const res = await fetch(url, {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers:  { 'Content-Type': 'application/json' }
+    });
   
     return res.json();
 }

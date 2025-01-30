@@ -31,7 +31,17 @@ export interface IApiResponse {
       }; 
   }
 
-
+  export type ResearchInfluencerPayload = {
+    time: Time;
+    name: string;
+    claim_size: number;
+    selected_journals: Journal[];
+    openAi_key: string;
+    assemblyAi_key: string;
+    perplexity_key: string;
+    listen_notes_key: string;
+    twitter_bearer_token: string;
+  };
 
   export interface IGetInfluencerResponse extends IApiResponse {
     data: {
@@ -40,4 +50,11 @@ export interface IApiResponse {
       total_claims: number;
       categories: string[];
     };
+  }
+
+  export enum Time {
+    ALL_TIME = 'ALL_TIME',
+    LAST_WEEK = 'LAST_WEEK',
+    LAST_MONTH = 'LAST_MONTH',
+    LAST_YEAR = 'LAST_YEAR',
   }

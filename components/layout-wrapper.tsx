@@ -4,6 +4,7 @@ import { Button } from '@mui/material'
 import { usePathname } from 'next/navigation';
 import React, { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Bounce, ToastContainer } from 'react-toastify';
 const queryClient = new QueryClient();
 const LayoutWrapper = ({children}:{children: ReactNode}) => {
   const router = usePathname();
@@ -26,6 +27,19 @@ const LayoutWrapper = ({children}:{children: ReactNode}) => {
         </div>
 {children}
     </div>
+    <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+transition={Bounce}
+/>
     </QueryClientProvider>
   )
 }
