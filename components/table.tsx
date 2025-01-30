@@ -1,36 +1,42 @@
 import React from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, TableContainer, Paper } from '@mui/material';
+import Link from 'next/link';
+import { IGetLeaderboardResponse } from '@/types';
 
-const SimpleTable = () => {
+const SimpleTable = ({claims}: {claims: IGetLeaderboardResponse['data']['claims']}) => {
   return (
     <TableContainer component={Paper}>
       <Table className='bg-[#1b2432]'>
         <TableHead>
           <TableRow>
-              <TableCell ><p className='text-white'>Influencer</p></TableCell>
-              <TableCell><p className='text-white'>Trust Score</p></TableCell>
-              <TableCell><p className='text-white'>Verified claim</p></TableCell>
+              <TableCell ><p className='text-[#9da0a6]'>Influencer</p></TableCell>
+              <TableCell><p className='text-[#9da0a6]'>Trust Score</p></TableCell>
+              <TableCell><p className='text-[#9da0a6]'>Total claims</p></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-            <TableRow>
+          {claims.map((claim) => (
+            <TableRow key={claim._id}>
             <TableCell>
-                <div className='flex gap-4'>
-                <div>
-            a
-            </div>
-            <p className='text-white'>Joshua Onwuzu</p>
+                <Link href={`/leaderboard/${claim._id}`}>
+                <div className='flex items-center gap-4'>
+                <div className='w-16 h-16 rounded-full border'></div>
+            <p className='text-white'>{claim.name}</p>
                 </div>
+                </Link>
+
 
 
         </TableCell>
         <TableCell>
-            <p className='text-white'>90%</p>
+            <p className='text-white'>{claim.average_trust_score}%</p>
         </TableCell>
         <TableCell>
-            <p className='text-white'>203</p>
+            <p className='text-white'>{claim.claim.length}</p>
         </TableCell>
             </TableRow>
+          ))}
+
         </TableBody>
       </Table>
     </TableContainer>
