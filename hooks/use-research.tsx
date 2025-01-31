@@ -10,7 +10,6 @@ const useResearch = () => {
     const { mutateAsync, isPending } = useMutation({
         mutationFn: researchInfluencer,
         onSuccess: (data) => {
-            console.log({data}, "xxxxxxx")
 
             setJobId(data.job.id)
         }
@@ -26,10 +25,16 @@ const useResearch = () => {
         const s = () => new Promise((resolve, reject) => {
             const interval =  setInterval(() => {
                 fetchInfluencerDetails(id).then((data) => {
-                    console.log({data}, 'PPPPPPPPPPPPPPPPPPP')
                     if(data.job.claimId){
                         resolve(null)
                         router.push(`/leaderboard/${data.job.claimId}`)
+                    } else if(data.job.status === 'error'){
+                        reject()
+                        toast.error(data.job.message)
+                        if(ref.current){
+                            clearInterval(ref.current)
+                        }
+
                     }
                 }).catch(reject)
             }, 2000)

@@ -9,6 +9,7 @@ import useResearch from '@/hooks/use-research';
 import { toast } from 'react-toastify';
 import Accordion from '@mui/material/Accordion';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { encryptText } from '@/utils';
 
 const ResearchPage = () => {
 
@@ -59,7 +60,14 @@ const ResearchPage = () => {
     if(!apiPayload.name || !apiPayload.time || !apiPayload.selected_journals.length){
       toast("Name, Number of claims and seleted journals are required")
     } else {
-      await research(apiPayload)
+      const _payload = {...apiPayload}
+
+      _payload.assemblyAi_key = encryptText(apiPayload.assemblyAi_key)
+      _payload.listen_notes_key = encryptText(apiPayload.listen_notes_key)
+      _payload.openAi_key = encryptText(apiPayload.openAi_key)
+      _payload.twitter_bearer_token = encryptText(apiPayload.twitter_bearer_token)
+      _payload.perplexity_key = encryptText(apiPayload.perplexity_key)
+      await research(_payload)
     }
   }
 const  setTimeRange = (t: Time) => {
@@ -167,10 +175,14 @@ const setName = (t: string) => {
           aria-controls="panel1-content"
           id="panel1-header"
         >
+          <div>
           <Typography sx={{color: 'white'}} component="span">Research using my API keys ( Optional )</Typography>
+          <p className='text-[#9da0a6] text-sm mt-1'>Your keys are encrypted and sent to our server</p>
+          </div>
+
         </AccordionSummary>
         <AccordionDetails>
-        <div>
+        <div className='flex flex-col gap-4'>
         <div className=''>
         <p className='text-[#9da0a6] text-sm mb-2'>Open AI api key</p>
         <input type='text' value={apiPayload.openAi_key} onChange={(e) => setApiPayload((prev) => {

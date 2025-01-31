@@ -40,8 +40,9 @@ export interface IApiResponse {
 
     job: {
       id: string;
-      status: 'pending' | 'completed';
+      status: 'pending' | 'completed' | 'error';
       claimId: string;
+      message: string
     }
 
   }
