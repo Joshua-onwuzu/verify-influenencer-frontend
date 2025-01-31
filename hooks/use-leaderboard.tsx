@@ -1,31 +1,24 @@
-import { getGeneralInfo, getLeaderboard } from '@/services/get-influencer-leaderboard';
-import { useQuery } from '@tanstack/react-query';
+import { getGeneralInfo, getLeaderboard } from '@/services/get-influencer-leaderboard'
+import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
 const useLeaderBoard = () => {
-    const [queryByCategory, setQueryByCategory] = useState('All')
-    const {
-        isLoading,
-        data,
-      } = useQuery({
-        queryKey: ['GET_LEADERBOARD', queryByCategory],
-        queryFn: async () => {
-          const response = await getLeaderboard(queryByCategory);
-          return response.data.claims
-        },
-      });
+  const [queryByCategory, setQueryByCategory] = useState('All')
+  const { isLoading, data } = useQuery({
+    queryKey: ['GET_LEADERBOARD', queryByCategory],
+    queryFn: async () => {
+      const response = await getLeaderboard(queryByCategory)
+      return response.data.claims
+    },
+  })
 
-      const {
-        data: generalInfo,
-      } = useQuery({
-        queryKey: ['GET_GENERAL_INFO'],
-        queryFn: async () => {
-          const response = await getGeneralInfo();
-          return response.data
-        },
-      });
-
-
+  const { data: generalInfo } = useQuery({
+    queryKey: ['GET_GENERAL_INFO'],
+    queryFn: async () => {
+      const response = await getGeneralInfo()
+      return response.data
+    },
+  })
 
   return {
     isLoading,
@@ -35,7 +28,7 @@ const useLeaderBoard = () => {
     categories: generalInfo?.categories || [],
     setQueryByCategory,
     claims: data,
-    categoryQuery: queryByCategory
+    categoryQuery: queryByCategory,
   }
 }
 
