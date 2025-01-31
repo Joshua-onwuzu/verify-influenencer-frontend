@@ -58,7 +58,11 @@ const ResearchPage = () => {
     if(!apiPayload.name || !apiPayload.time || !apiPayload.selected_journals.length){
       toast("Name, Number of claims and seleted journals are required")
     } else {
-      toast.promise(research(apiPayload), {
+      const handler  = async () => {
+        await research(apiPayload)
+      }
+
+      toast.promise(handler(), {
         pending: 'Researching ...',
         success: 'Research Completed',
         error: 'Research Failed'
