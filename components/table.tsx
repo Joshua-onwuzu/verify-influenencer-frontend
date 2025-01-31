@@ -10,8 +10,8 @@ const SimpleTable = ({claims}: {claims: IGetLeaderboardResponse['data']['claims'
         <TableHead>
           <TableRow>
               <TableCell ><p className='text-[#9da0a6]'>Influencer</p></TableCell>
-              <TableCell><p className='text-[#9da0a6]'>Trust Score</p></TableCell>
-              <TableCell><p className='text-[#9da0a6]'>Total claims</p></TableCell>
+              <TableCell><p className='text-[#9da0a6]'>Average Trust Score</p></TableCell>
+              <TableCell><p className='text-[#9da0a6]'>Total claims ( Based on categories filter )</p></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
