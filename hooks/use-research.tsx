@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 const useResearch = () => {
     const router = useRouter()
     const [jobId, setJobId] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
     const { mutateAsync, isPending } = useMutation({
         mutationFn: researchInfluencer,
         onSuccess: (data) => {
@@ -20,20 +21,34 @@ const useResearch = () => {
       }
 
       const ref = useRef<NodeJS.Timeout  | null>(null)
-      const listenForJobCompletion = (id: string) => {
+      const listenForJobCompletion = async (id: string) => {
         if(!id) return
+        setIsLoading(true)
         const s = () => new Promise((resolve, reject) => {
             const interval =  setInterval(() => {
                 fetchInfluencerDetails(id).then((data) => {
                     if(data.job.claimId){
                         resolve(null)
-                        router.push(`/leaderboard/${data.job.claimId}`)
+                        const isEmpty = data.job.isEmpty
+
+                        if(isEmpty){
+                            toast.info('No data found')
+                        } else {
+                            router.push(`/leaderboard/${data.job.claimId}`)
+                        }
+
+                        if(ref.current){
+                            clearInterval(ref.current)
+                        }
+                        setIsLoading(false)
+
                     } else if(data.job.status === 'error'){
                         reject()
                         toast.error(data.job.message)
                         if(ref.current){
                             clearInterval(ref.current)
                         }
+                        setIsLoading(false)
 
                     }
                 }).catch(reject)
@@ -41,14 +56,12 @@ const useResearch = () => {
 
             ref.current = interval
         })
-
-
-
-        toast.promise(s, {
+         toast.promise(s, {
             success: 'Research Completed',
             pending: 'Researching ...',
             error: 'Research failed'
         })
+
 
       }
 
@@ -71,6 +84,8 @@ const useResearch = () => {
       return {
         research: mutateAsync,
         isLoading: isPending,
+        disableResearch: isPending || isLoading,
+        
 
       }
 }

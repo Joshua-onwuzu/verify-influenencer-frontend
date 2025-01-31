@@ -43,6 +43,7 @@ export interface IApiResponse {
       status: 'pending' | 'completed' | 'error';
       claimId: string;
       message: string
+      isEmpty: boolean
     }
 
   }

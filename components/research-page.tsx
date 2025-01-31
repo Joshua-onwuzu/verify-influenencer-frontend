@@ -16,7 +16,7 @@ const ResearchPage = () => {
 
 
 
-  const {research} = useResearch()
+  const {research, disableResearch} = useResearch()
   const journals = [
     Journal.NEJM,
     Journal.Lancet,
@@ -169,7 +169,7 @@ const setName = (t: string) => {
           ))}
 </FormGroup>
 </div>
-<Accordion sx={{backgroundColor: '#17212f', marginTop: '2rem'}}>
+<Accordion sx={{backgroundColor: '#17212f', marginTop: '2rem', padding: '10px', borderRadius: '10px'}}>
         <AccordionSummary
           expandIcon={<ArrowDownwardIcon sx={{color: 'white'}}/>}
           aria-controls="panel1-content"
@@ -177,7 +177,7 @@ const setName = (t: string) => {
         >
           <div>
           <Typography sx={{color: 'white'}} component="span">Research using my API keys ( Optional )</Typography>
-          <p className='text-[#9da0a6] text-sm mt-1'>Your keys are encrypted and sent to our server</p>
+          <p className='text-[#9da0a6] text-sm mt-1'>Your keys are encrypted before it gets sent to our server</p>
           </div>
 
         </AccordionSummary>
@@ -217,8 +217,8 @@ const setName = (t: string) => {
         </AccordionDetails>
       </Accordion>
 
-<div className='flex justify-end mt-48'>
-        <Button onClick={onStart} variant="contained" sx={{  backgroundColor: '#0eba80'}}>
+<div className='flex justify-end mt-24'>
+        <Button disabled={disableResearch} onClick={onStart} variant={"contained"} sx={{  backgroundColor: disableResearch ?  '#17212f':'#0eba80'}}>
           <AddIcon />
           <p>Start</p>
 
