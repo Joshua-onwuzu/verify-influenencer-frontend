@@ -29,9 +29,9 @@ const useLeaderBoard = () => {
 
   return {
     isLoading,
-    verifiedClaims: generalInfo?.total_verified_claims || '- -',
-    totalClaims: generalInfo?.total_claims || '- -',
-    averageTrustScore: generalInfo?.average_trust_score || '- -',
+    verifiedClaims: generalInfo?.total_verified_claims || '0',
+    totalClaims: generalInfo?.total_claims || '0',
+    averageTrustScore: generalInfo?.average_trust_score || '0',
     categories: generalInfo?.categories || [],
     setQueryByCategory,
     claims: data,

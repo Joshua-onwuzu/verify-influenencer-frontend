@@ -64,20 +64,20 @@ Verified Claims
           {details?.detail.claim.map((data, key) => (
           <div key={key} className='p-4 border-b border-[#252f3f] flex items-center justify-between'>
           <div>
+
           <p className='text-white'>{data.claim_summary}</p>
+          <div className='flex'> <div className={` ${data.trust_score >= 75 ? 'text-[#0eba80]' : data.trust_score >= 60 ? 'text-[#efc416]' :  data.trust_score >= 30 ? 'text-orange-400' : 'text-red-500'} py-2 rounded-md`}>{data.verification_status} </div></div>
           <div className='flex items-center'>
             <Link target="_blank" href={data.link}>
             <div className='flex items-center'>
             <p className='text-[#0eba80] text-xs mr-2 cursor-pointer'>View Source</p>
             <OpenInNewOutlinedIcon sx={{ color: '#0eba80', width: '13px' }} />
             </div>
-
-
             </Link>
 </div>
           </div>
           <div>
-            <p className={`text-2xl text-end font-semibold mb-2 ${data.trust_score >= 90 ? 'text-[#0eba80]' : data.trust_score >= 70 ? 'text-[#efc416]' :  data.trust_score >= 50 ? 'text-orange-400' : 'text-red-500'}`}>{data.trust_score}%</p>
+            <p className={`text-2xl text-end font-semibold mb-2 ${data.trust_score >= 75 ? 'text-[#0eba80]' : data.trust_score >= 60 ? 'text-[#efc416]' :  data.trust_score >= 30 ? 'text-orange-400' : 'text-red-500'}`}>{data.trust_score}%</p>
             <p className='text-[#9da0a6] text-sm'>Trust Score</p>
           </div>
 

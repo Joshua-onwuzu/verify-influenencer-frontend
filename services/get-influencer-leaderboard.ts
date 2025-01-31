@@ -1,4 +1,4 @@
-import { IGetGeneralInfoResponse, IGetInfluencerResponse, IGetLeaderboardResponse, ResearchInfluencerPayload } from "@/types";
+import { IGetGeneralInfoResponse, IGetInfluencerResponse, IGetLeaderboardResponse, IJob, ResearchInfluencerPayload } from "@/types";
 
 export const getLeaderboard = async (
     category: string
@@ -38,8 +38,7 @@ export const getInfluencerDetail = async (id: string): Promise<IGetInfluencerRes
 
 
 export const researchInfluencer = async (body: ResearchInfluencerPayload): Promise<{
-    data: any[];
-    id: string;
+    job: {id: string}
     success: boolean;
     message: string;
   }> => {
@@ -50,6 +49,15 @@ export const researchInfluencer = async (body: ResearchInfluencerPayload): Promi
         body: JSON.stringify(body),
         headers:  { 'Content-Type': 'application/json' }
     });
+  
+    return res.json();
+}
+
+
+
+export const fetchJobDetails = async (id: string): Promise<IJob> => {
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/state?id=${id}`;
+    const res = await fetch(url);
   
     return res.json();
 }

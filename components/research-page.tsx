@@ -1,3 +1,4 @@
+ 
 'use client'
 
 import { AccordionDetails, AccordionSummary, Button, Checkbox, FormControlLabel, FormGroup, Typography } from '@mui/material'
@@ -29,7 +30,7 @@ const ResearchPage = () => {
   const [apiPayload, setApiPayload] = useState<ResearchInfluencerPayload>({
     time: Time.ALL_TIME,
     name: '',
-    claim_size: 10,
+    claim_size: '1',
     selected_journals: journals,
     openAi_key: '',
     assemblyAi_key: '',
@@ -58,15 +59,7 @@ const ResearchPage = () => {
     if(!apiPayload.name || !apiPayload.time || !apiPayload.selected_journals.length){
       toast("Name, Number of claims and seleted journals are required")
     } else {
-      const handler  = async () => {
-        await research(apiPayload)
-      }
-
-      toast.promise(handler(), {
-        pending: 'Researching ...',
-        success: 'Research Completed',
-        error: 'Research Failed'
-      })
+      await research(apiPayload)
     }
   }
 const  setTimeRange = (t: Time) => {
@@ -77,9 +70,11 @@ const timeRange = apiPayload.time
 const setName = (t: string) => {
   setApiPayload((prev) => {return {...prev, name: t}})
 }
-  const setClaimSize = (t: number) => {
+  const setClaimSize = (t: string) => {
+    if(parseFloat(t) < 0) return
     setApiPayload((prev) => {return {...prev, claim_size: t}})
   }
+
 
   return (
     <div className='w-full'>
@@ -146,7 +141,7 @@ const setName = (t: string) => {
         </div>
         <div className='mt-8'>
         <p className='text-[#9da0a6] text-sm mb-2'>Claims to Analyse per influencer</p>
-        <input type='number' value={apiPayload.claim_size} onChange={(e) => setClaimSize(Number(e.target.value))} placeholder='e.g 10' className='w-full  px-4 py-2 rounded-lg border bg-[#17212f]  border-[#252f3f]'/>
+        <input type='number' value={apiPayload.claim_size} onChange={(e) => setClaimSize(e.target.value)} placeholder='2' className='w-full  px-4 py-2 rounded-lg border bg-[#17212f]  border-[#252f3f]'/>
         </div>
 
         <div className='w-full mt-8'>
