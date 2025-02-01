@@ -72,7 +72,7 @@ const InfluencerDetailPage = () => {
                 <div className="flex">
                   {' '}
                   <div
-                    className={` ${data.trust_score >= 75 ? 'text-[#0eba80]' : data.trust_score >= 60 ? 'text-[#efc416]' : data.trust_score >= 30 ? 'text-orange-400' : 'text-red-500'} py-2 rounded-md`}
+                    className={` ${data.verification_status === 'Verified' ? 'text-[#0eba80]' : data.verification_status === 'Questionable' ? 'text-[#efc416]' : 'text-red-500'} py-2 rounded-md`}
                   >
                     {data.verification_status}{' '}
                   </div>

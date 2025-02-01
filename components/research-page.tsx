@@ -9,7 +9,7 @@ import {
   FormGroup,
   Typography,
 } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { Journal, ResearchInfluencerPayload, Time } from '@/types'
 import useResearch from '@/hooks/use-research'
@@ -87,6 +87,11 @@ const ResearchPage = () => {
       return { ...prev, claim_size: t }
     })
   }
+
+
+  useEffect(() => {
+    toast.info(`If your request doesn't go through, try using your own API keys as we are currently operating on a free-tier account for our resources.`)
+  }, [])
 
   return (
     <div className="w-full">
