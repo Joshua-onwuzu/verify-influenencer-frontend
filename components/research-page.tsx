@@ -88,9 +88,10 @@ const ResearchPage = () => {
     })
   }
 
-
   useEffect(() => {
-    toast.info(`If your request doesn't go through, try using your own API keys as we are currently operating on a free-tier account for our resources.`)
+    toast.info(
+      `If your request doesn't go through, try using your own API keys as we are currently operating on a free-tier account for our resources.`
+    )
   }, [])
 
   return (

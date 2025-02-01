@@ -18,10 +18,9 @@ const useInfluencerDetails = () => {
   })
 
   useEffect(() => {
-    if(isFetched && data?.total_claims === 0){
+    if (isFetched && data?.total_claims === 0) {
       toast.info('Data Not Found for this influencer')
     }
-
   }, [isFetched])
 
   console.log({ data })
